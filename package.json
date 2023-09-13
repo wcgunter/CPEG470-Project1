@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
-    "ui": "browser-sync start --config bs-config.js"
+    "ui": "browser-sync start --config bs-config.js",
+    "start": "node ./index.js"
   },
   "keywords": [],
   "author": "",
