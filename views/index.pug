@@ -1,17 +1,14 @@
 extends layout
 
 block layout-content
-  div.View.WelcomeView
-    h1.Banner WHATABYTE
-    div.Message
-      div.Title
-        h3 Making the Best
-        h1 Food For Devs
-      span.Details Access the WHATABYTE Team Portal
-    div.NavButtons
-      if isAuthenticated 
-        a(href="/user")
-          div.NavButton Just dive in!
-      else
-        a(href="/login")
-          div.NavButton Log in
+  div.container-fluid
+    div.card.login-card
+      div.card-body
+        h1.card-title.text-center Welcome to Tourney Tracker
+        p.card-text.text-center
+          | To ensure the best experience for all users,
+          | please login or register for an account below.
+        div.d-grid.gap-2.login-trophy-div
+          img.login-trophy(src="/images/trophy.png", alt="Trophy", height="300px", width="300px")
+        div.d-grid.gap-2
+          button.btn.btn-primary.btn-lg(type="button", onclick="window.location.href='/login'") Login
