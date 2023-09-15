@@ -6,12 +6,26 @@
 
 const express = require("express");
 const path = require("path");
+const _ = require("lodash");
+
+const dotenv = require("dotenv");
 
 const expressSession = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 
-require("dotenv").config();
+const result = dotenv.config();
+
+let envs;
+
+if (!("error" in result)) {
+  envs = result.parsed;
+} else {
+  envs = {};
+  _.each(process.env, (value, key) => {
+    envs[key] = value;
+  });
+}
 
 const authRouter = require("./auth");
 
