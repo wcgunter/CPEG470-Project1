@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "ui": "browser-sync start --config bs-config.js",
-    "start": "nodemon ./index.js"
+    "start": "node ./index.js"
   },
   "keywords": [],
   "author": "",
