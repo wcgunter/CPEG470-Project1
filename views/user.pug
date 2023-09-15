@@ -1,13 +1,24 @@
 extends layout
 
 block layout-content
-  div.View.UserView
+  nav.navbar.sticky-top.bg-body-tertiary 
+    div.container-fluid
+      a.navbar-brand(href="/")
+        img(src="/images/trophy.png", alt="Trophy", height="30px", width="30px")
+        span.navbar-brand-text Tourney Tracker
+      ul.navbar-nav
+        li.nav-item 
+          a.nav-link.active(aria-current="page", href="/logout") Logout
+  div.container-fluid
+    div.row.flex-nowrap
+      div.col-auto.col-md-3.col-xl-2.px-sm-2.px-0.bg-dark
+        div.d-flex.flex-column.align-items-center.align-items-sm-start.px-3.pt-2.text-white.min-vh-100
+          a.d-flex.align-items-center.pb-3.md-mb-0.me-md-auto.text-white.text-dectoration-none
+            span.fs-5.d-none.d-sm-inline Menu
+  //div.View.UserView
     h1.Banner Howdy, #{userProfile.nickname}!
     div.Message
       div.Title
         h3 Making Us the Best
         h1 Teammate Profile
       pre.Details=JSON.stringify(userProfile, null, 2)
-    div.NavButtons
-      a(href="/logout")
-        div.NavButton Log out
