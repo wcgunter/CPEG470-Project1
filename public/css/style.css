@@ -14,3 +14,24 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.navbar-flex-fix {
+    flex-direction: row !important;
+    gap: 15px !important;
+}
+
+.title-fix {
+    margin-left: 15px !important;
+}
+
+.filter-sidebar {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.tourneylist-main {
+    border-left: 2px solid lightgrey;
+}
