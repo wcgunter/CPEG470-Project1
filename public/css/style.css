@@ -57,7 +57,8 @@
     row-gap: 15px;
     column-gap: 15px;
     overflow-y: scroll;
-    height: calc(100vh - 58.28px - 15px);
+    height: calc(100vh - 58.28px - 15px - 15px);
+    margin-bottom: 15px;
 }
 
 .icon-btn-logout {
