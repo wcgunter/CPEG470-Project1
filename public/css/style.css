@@ -26,6 +26,7 @@
 
 .filter-sidebar {
     margin-top: 15px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -34,4 +35,31 @@
 
 .tourneylist-main {
     border-left: 2px solid lightgrey;
+}
+
+.overflow-scroll {
+    height: calc(100vh - 58.28px);
+    min-width: 250px !important;
+}
+
+.tourney-card {
+    width: 18rem;
+}
+
+.tourneylist-main-flex {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    row-gap: 15px;
+    column-gap: 15px;
+    overflow-y: scroll;
+    height: calc(100vh - 58.28px - 15px);
+}
+
+.icon-btn-logout {
+    margin-right: 5px;
 }

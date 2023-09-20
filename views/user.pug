@@ -8,10 +8,12 @@ block layout-content
         span.navbar-brand-text.title-fix Tourney Tracker
       div.navbar-nav.navbar-flex-fix
         a.nav-link.disabled Welcome, #{userProfile.name.givenName}!
-        a.nav-link(href="/about") Logout
+        button.btn.btn-outline-secondary(type="button", onclick="window.location.href='/logout'")
+          i.bi.bi-door-closed.icon-btn-logout
+          | Logout
   div.container-fluid
     div.row
-      div.col-2
+      div.col-2.overflow-scroll
         div.filter-sidebar
           div.accordion(id="searchAccordion")
             div.accordion-item
@@ -44,7 +46,69 @@ block layout-content
               div#collapseFive.accordion-collapse.collapse.show(aria-labelledby="headingFive", data-bs-parent="#searchAccordion")
                 div.accordion-body
                   strong This is the filter criteria #5 accordion dropdown.
-      div.col-10.tourneylist-main Columns 
+      div.col.tourneylist-main
+        div.tourneylist-main-flex
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+          div.card.tourney-card
+            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
+            div.card-body
+              h5.card-title Tournament Name
+              p.card-text Tournament Description
+              button.btn.btn-primary(type="button") View Tournament
+        
   //div.View.UserView
     h1.Banner Howdy, #{userProfile.nickname}!
     div.Message
