@@ -12,6 +12,8 @@ const _ = require("lodash");
 
 require("dotenv").config();
 
+const result = dotenv.config();
+
 let envs;
 
 if (!("error" in result)) {
