@@ -5,6 +5,7 @@
  */
 
 const express = require("express");
+const mongo = require("mongodb");
 const path = require("path");
 const _ = require("lodash");
 
@@ -15,6 +16,9 @@ const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 
 const result = dotenv.config();
+
+var MongoClient = require('mongodb').MongoClient;
+var mongoUrl = process.env.DATABASE_URI;
 
 let envs;
 
@@ -34,14 +38,14 @@ const authRouter = require("./auth");
  */
 
 const app = express();
-const port = process.env.PORT || "8000";
+const port = envs["PORT"] || "8000";
 
 /**
  * Session Configuration (New!)
  */
 
 const session = {
-  secret: process.env.SESSION_SECRET,
+  secret: envs["SESSION_SECRET"],
   cookie: {},
   resave: false,
   saveUninitialized: false
@@ -58,10 +62,10 @@ if (app.get("env") === "production") {
 
 const strategy = new Auth0Strategy(
   {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL: process.env.AUTH0_CALLBACK_URL
+    domain: envs["AUTH0_DOMAIN"],
+    clientID: envs["AUTH0_CLIENT_ID"],
+    clientSecret: envs["AUTH0_CLIENT_SECRET"],
+    callbackURL: envs["AUTH0_CALLBACK_URL"]
   },
   function(accessToken, refreshToken, extraParams, profile, done) {
     return done(null, profile);
