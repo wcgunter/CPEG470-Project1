@@ -28,6 +28,7 @@ if (!("error" in result)) {
   envs = {};
   _.each(process.env, (value, key) => {
     envs[key] = value;
+    console.log("Adding env var: " + key + " = " + value);
   });
 }
 
