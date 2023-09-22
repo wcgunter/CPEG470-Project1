@@ -79,6 +79,7 @@ const strategy = new Auth0Strategy(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+app.set("trust proxy", 1);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(expressSession(session));
