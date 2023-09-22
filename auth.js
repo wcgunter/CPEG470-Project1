@@ -8,8 +8,21 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const querystring = require("querystring");
+const _ = require("lodash");
 
 require("dotenv").config();
+
+let envs;
+
+if (!("error" in result)) {
+  envs = result.parsed;
+} else {
+  envs = {};
+  _.each(process.env, (value, key) => {
+    envs[key] = value;
+    console.log("Adding env var: " + key + " = " + value);
+  });
+}
 
 /**
  * Routes Definitions
@@ -52,7 +65,7 @@ router.get("/logout", (req, res) => {
   
     if (port !== undefined && port !== 80 && port !== 443) {
       returnTo =
-        process.env.NODE_ENV === "production"
+        envs["NODE_ENV"] === "production"
           ? `${returnTo}/`
           : `${returnTo}:${port}/`;
     }
