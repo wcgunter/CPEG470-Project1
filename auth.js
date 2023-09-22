@@ -8,24 +8,6 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const querystring = require("querystring");
-const _ = require("lodash");
-const dotenv = require("dotenv");
-
-require("dotenv").config();
-
-const result = dotenv.config();
-
-let envs;
-
-if (!("error" in result)) {
-  envs = result.parsed;
-} else {
-  envs = {};
-  _.each(process.env, (value, key) => {
-    envs[key] = value;
-    console.log("Adding env var: " + key + " = " + value);
-  });
-}
 
 /**
  * Routes Definitions
