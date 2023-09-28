@@ -33,10 +33,6 @@
     justify-content: flex-start;
 }
 
-.tourneylist-main {
-    border-left: 2px solid lightgrey;
-}
-
 .overflow-scroll {
     height: calc(100vh - 58.28px);
     min-width: 250px !important;
@@ -63,4 +59,9 @@
 
 .icon-btn-logout {
     margin-right: 5px;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
 }

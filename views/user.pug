@@ -13,106 +13,28 @@ block layout-content
           | Logout
   div.container-fluid
     div.row
-      div.col-2.overflow-scroll
-        div.filter-sidebar
-          div.accordion(id="searchAccordion")
-            div.accordion-item
-              h2.accordion-header 
-                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne", aria-expanded="true", aria-controls="collapseOne") Filter Criteria #1
-              div#collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne", data-bs-parent="#searchAccordion")
-                div.accordion-body
-                  strong This is the filter criteria #1 accordion dropdown.
-            div.accordion-item
-              h2.accordion-header 
-                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo", aria-expanded="true", aria-controls="collapseTwo") Filter Criteria #2
-              div#collapseTwo.accordion-collapse.collapse.show(aria-labelledby="headingTwo", data-bs-parent="#searchAccordion")
-                div.accordion-body
-                  strong This is the filter criteria #2 accordion dropdown.
-            div.accordion-item
-              h2.accordion-header 
-                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree", aria-expanded="true", aria-controls="collapseThree") Filter Criteria #3
-              div#collapseThree.accordion-collapse.collapse.show(aria-labelledby="headingThree", data-bs-parent="#searchAccordion")
-                div.accordion-body
-                  strong This is the filter criteria #3 accordion dropdown.
-            div.accordion-item
-              h2.accordion-header 
-                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour", aria-expanded="true", aria-controls="collapseFour") Filter Criteria #4
-              div#collapseFour.accordion-collapse.collapse.show(aria-labelledby="headingFour", data-bs-parent="#searchAccordion")
-                div.accordion-body
-                  strong This is the filter criteria #4 accordion dropdown.
-            div.accordion-item
-              h2.accordion-header 
-                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFive", aria-expanded="true", aria-controls="collapseFive") Filter Criteria #5
-              div#collapseFive.accordion-collapse.collapse.show(aria-labelledby="headingFive", data-bs-parent="#searchAccordion")
-                div.accordion-body
-                  strong This is the filter criteria #5 accordion dropdown.
       div.col.tourneylist-main
         div.tourneylist-main-flex
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-          div.card.tourney-card
-            img.card-img-top(src="https://www.udel.edu/content/dam/udelImages/main/photography/campus/Memorial_Spring_002.jpg/_jcr_content/renditions/original", alt="")
-            div.card-body
-              h5.card-title Tournament Name
-              p.card-text Tournament Description
-              button.btn.btn-primary(type="button") View Tournament
-        
-  //div.View.UserView
-    h1.Banner Howdy, #{userProfile.nickname}!
-    div.Message
-      div.Title
-        h3 Making Us the Best
-        h1 Teammate Profile
-      pre.Details=JSON.stringify(userProfile, null, 2)
+          each tournament in tournaments 
+            - 
+              var tourneyDate = new Date(tournament.date)
+              var tourneyDateFormatted = tourneyDate.toDateString();
+              var tourneyTime = tourneyDate.toLocaleTimeString();
+              var numOfAttendees = tournament.attendees.length;
+            div.card.tourney-card
+              img.card-img-top(src=tournament.image_url, alt="")
+              div.card-body
+                h5.card-title #{tournament.name}
+                p.card-text 
+                  i Game: 
+                  | #{tournament.game}
+                p.card-text 
+                  i Date: 
+                  | #{tourneyDateFormatted}
+                p.card-text 
+                  i Time: 
+                  | #{tourneyTime}
+                p.card-text 
+                  i Attendees: 
+                  | #{numOfAttendees}
+                button.btn.btn-primary(type="button" onclick="window.location.href='/tournament/" +  tournament._id + "'") View Tournament

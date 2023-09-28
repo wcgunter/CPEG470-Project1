@@ -4,21 +4,15 @@
  * Required External Modules
  */
 
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
-const mongo = require("mongodb");
 const path = require("path");
 const _ = require("lodash");
-
 const dotenv = require("dotenv");
-
 const expressSession = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
-
 const result = dotenv.config();
-
-var MongoClient = require('mongodb').MongoClient;
-var mongoUrl = process.env.DATABASE_URI;
 
 let envs;
 
@@ -32,6 +26,9 @@ if (!("error" in result)) {
   });
 }
 
+const client = new MongoClient(envs["DATABASE_URI"]);
+const dbName = "proj1-backend";
+const tournamentCollection = "tournaments";
 const authRouter = require("./auth");
 
 /**
@@ -100,6 +97,22 @@ passport.deserializeUser(function(user, done) {
  * Custom middleware
  */
 
+async function getAllTournaments() {
+  try {
+    let database = client.db(dbName);
+    let collection = database.collection(tournamentCollection);
+
+    const resultsCursor = await collection.find();
+    //order results so newest is first
+    resultsCursor.sort({ _id: -1 });
+    const resultsArray = await resultsCursor.toArray();
+    return resultsArray;
+  }
+  catch (err) {
+    console.log(err);
+  }
+};
+
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated();
   next();
@@ -127,11 +140,13 @@ app.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
-app.get("/user", secured, (req, res, next) => {
+app.get("/user", secured, async (req, res, next) => {
   const { _raw, _json, ...userProfile } = req.user;
+  let tournaments = await getAllTournaments();
   res.render("user", {
     title: "Profile",
-    userProfile: userProfile
+    userProfile: userProfile,
+    tournaments: tournaments
   });
 });
 
