@@ -41,6 +41,12 @@ block layout-content
                 p.card-text 
                   i Attendees: 
                   | #{numOfAttendees}
+                p.card-text 
+                  i Location: 
+                  | #{tournament.location}
+                p.card-text
+                  i Organizer: 
+                  | #{tournament.owner}
                 button.btn.btn-primary(type="button" onclick="window.location.href='/tournament/" +  tournament._id + "'") View Tournament
   div.modal.fade(id="addTourneyModal", tabIndex="-1", aria-labelledby="addTourneyModal")
     div.modal-dialog

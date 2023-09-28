@@ -68,8 +68,8 @@
 
 .tourney-card-add {
     width: 18rem;
-    min-height: 464px;
-    max-height: 464px;
+    min-height: 544px;
+    max-height: 544px;
     background-color: #efefef !important;
 }
 
@@ -77,8 +77,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 460px;
-    max-height:460px;
+    min-height: 540px;
+    max-height: 540px;
 }
 
 .add-icon {
