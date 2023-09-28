@@ -65,3 +65,35 @@
     height: 200px;
     object-fit: cover;
 }
+
+.tourney-card-add {
+    width: 18rem;
+    min-height: 464px;
+    max-height: 464px;
+    background-color: #efefef !important;
+}
+
+.tourney-card-add-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 460px;
+    max-height:460px;
+}
+
+.add-icon {
+    font-size: 100px;
+    color: #a7a6a6 !important;
+}
+
+.add-button-format {
+    border: none;
+}
+
+input:invalid {
+    border-color: red !important;
+}
+
+input:invalid:required {
+    border-color: red !important;
+}

@@ -13,6 +13,7 @@ const expressSession = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 const result = dotenv.config();
+const bodyParser = require("body-parser");
 
 let envs;
 
@@ -84,6 +85,8 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -112,6 +115,19 @@ async function getAllTournaments() {
     console.log(err);
   }
 };
+
+async function createNewTournament(dbObject) {
+  try {
+    let database = client.db(dbName);
+    let collection = database.collection(tournamentCollection);
+
+    const result = await collection.insertOne(dbObject);
+    return result;
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated();
@@ -148,6 +164,25 @@ app.get("/user", secured, async (req, res, next) => {
     userProfile: userProfile,
     tournaments: tournaments
   });
+});
+
+//this is an api endpoint that data gets posted to
+//we need to store the data as json and then send to db
+//we also need to add the user id to the data
+app.post("/api/addTourney", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  //create object to store in db
+  let submittedData = req.body;
+  let dbData = {};
+  dbData["owner"] = userProfile.nickname;
+  dbData["name"] = submittedData["tourneyName"];
+  dbData["date"] = submittedData["tourneyDate"];
+  dbData["game"] = submittedData["tourneyGame"];
+  dbData["location"] = submittedData["tourneyLocation"];
+  dbData["image_url"] = submittedData["tourneyImage"];
+  dbData["attendees"] = [];
+  let result = await createNewTournament(dbData);
+  res.redirect("/user");
 });
 
 /**

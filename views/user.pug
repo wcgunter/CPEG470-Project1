@@ -15,6 +15,10 @@ block layout-content
     div.row
       div.col.tourneylist-main
         div.tourneylist-main-flex
+          div.card.tourney-card-add
+            div.tourney-card-add-flex
+              button.add-button-format(type="button", data-bs-toggle="modal", data-bs-target="#addTourneyModal")
+                i.bi.bi-plus-circle-fill.add-icon
           each tournament in tournaments 
             - 
               var tourneyDate = new Date(tournament.date)
@@ -38,3 +42,33 @@ block layout-content
                   i Attendees: 
                   | #{numOfAttendees}
                 button.btn.btn-primary(type="button" onclick="window.location.href='/tournament/" +  tournament._id + "'") View Tournament
+  div.modal.fade(id="addTourneyModal", tabIndex="-1", aria-labelledby="addTourneyModal")
+    div.modal-dialog
+      div.modal-content
+        div.modal-header
+          h1.modal-title.fs-5(id="addTourneyModalLabel") Add Tournament
+          button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+        div.modal-body
+          form(id="addTourneyForm", method="POST", action="/api/addTourney", autocomplete="off")
+            div.input-group.mb-3
+              span.input-group-text Tournament Name
+              input#tourneyName.form-control(type="text", placeholder="Enter tournament name", name="tourneyName" required)
+            div.input-group.mb-3
+              span.input-group-text Game
+              input#tourneyGame.form-control(type="text", placeholder="Enter tournament game", name="tourneyGame" required)
+            div.input-group.mb-3
+              span.input-group-text Location
+              input#tourneyLocation.form-control(type="text", placeholder="Enter tournament location", name="tourneyLocation" required)
+            div.input-group.mb-3
+              span.input-group-text Date
+              input#tourneyDate.form-control(type="datetime-local", placeholder="Enter tournament date", name="tourneyDate" required)
+            div.mb-3
+              div.input-group
+                span.input-group-text Image URL
+                input#tourneyImage.form-control(type="text", placeholder="Enter tournament image URL", name="tourneyImage" required)
+              div.form-text 
+                | We recommend Imgur to host your image for free.
+            div.mb-2
+              div.input-group
+                input.btn.btn-primary(type="submit")
+          
