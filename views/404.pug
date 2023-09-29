@@ -1,0 +1,24 @@
+extends layout 
+
+block layout-content
+    nav.navbar.sticky-top.bg-body-tertiary 
+        div.container-fluid
+            a.navbar-brand(href="/")
+                img(src="/images/trophy.png", alt="Trophy", height="30px", width="30px")
+                span.navbar-brand-text.title-fix Tourney Tracker
+            div.navbar-nav.navbar-flex-fix
+                a.nav-link.disabled Welcome, #{userProfile.name.givenName}!
+                button.btn.btn-outline-secondary(type="button", onclick="window.location.href='/logout'")
+                    i.bi.bi-door-closed.icon-btn-logout
+                    | Logout
+    div.container-fluid
+        // large 404 in the middle of the page
+        div.row
+            div.col
+                div.card.login-card
+                    div.card-body
+                        h1.card-title.text-center 404
+                        p.card-text.text-center
+                            | The page you are looking for does not exist.
+                        div.d-grid.gap-2
+                            button.btn.btn-primary.btn-lg(type="button", onclick="window.location.href='/user'") Return Home

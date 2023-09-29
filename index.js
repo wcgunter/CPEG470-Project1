@@ -5,6 +5,7 @@
  */
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
+var mongodb = require("mongodb");
 const express = require("express");
 const path = require("path");
 const _ = require("lodash");
@@ -109,12 +110,27 @@ async function getAllTournaments() {
     //order results so newest is first
     resultsCursor.sort({ _id: -1 });
     const resultsArray = await resultsCursor.toArray();
+    console.log(resultsArray[0]);
     return resultsArray;
   }
   catch (err) {
     console.log(err);
   }
 };
+
+async function getTournamentById(id) {
+  try {
+    let database = client.db(dbName);
+    let collection = database.collection(tournamentCollection);
+    const query = { _id: new mongodb.ObjectId(id)};
+
+    const result = await collection.findOne(query);
+    return result;
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
 
 async function createNewTournament(dbObject) {
   try {
@@ -164,6 +180,31 @@ app.get("/user", secured, async (req, res, next) => {
     userProfile: userProfile,
     tournaments: tournaments
   });
+});
+
+app.get("/tournament/:id", secured, async (req, res, next) => {
+  const {_raw, _json, ...userProfile} = req.user;
+  let id = req.params.id;
+  console.log("Tournament ID: " + id);
+  let tournament = await getTournamentById(id);
+  if (tournament == null) {
+    res.render("404", {
+      title: "404",
+      userProfile: userProfile
+    });
+  } else if (tournament.owner == userProfile.nickname) {
+    res.render("tournament_admin", {
+      title: "Tournament Admin",
+      userProfile: userProfile,
+      tournament: tournament
+    });
+  } else {
+    res.render("tournament", {
+      title: "Tournament",
+      userProfile: userProfile,
+      tournament: tournament
+    });
+  }
 });
 
 //this is an api endpoint that data gets posted to
