@@ -181,6 +181,7 @@ app.post("/api/addTourney", secured, async (req, res, next) => {
   dbData["location"] = submittedData["tourneyLocation"];
   dbData["image_url"] = submittedData["tourneyImage"];
   dbData["attendees"] = [];
+  dbData["data"] = "";
   let result = await createNewTournament(dbData);
   res.redirect("/user");
 });
