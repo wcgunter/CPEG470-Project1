@@ -1,0 +1,54 @@
+extends layout
+
+block layout-content
+  nav.navbar.sticky-top.bg-body-tertiary 
+    div.container-fluid
+      a.navbar-brand(href="/")
+        img(src="/images/trophy.png", alt="Trophy", height="30px", width="30px")
+        span.navbar-brand-text.title-fix Tourney Tracker
+      div.navbar-nav.navbar-flex-fix
+        a.nav-link.disabled Welcome, #{userProfile.name.givenName}!
+        button.btn.btn-outline-secondary(type="button", onclick="window.location.href='/logout'")
+          i.bi.bi-door-closed.icon-btn-logout
+          | Logout
+  div.container-fluid
+    div.row
+      div.col.tourneylist-main
+        div.tourneylist-main-flex
+            - 
+              var tourneyDate = new Date(tournament.date)
+              var tourneyDateFormatted = tourneyDate.toDateString();
+              var tourneyTime = tourneyDate.toLocaleTimeString();
+              var numOfAttendees = tournament.attendees.length;
+              var signedUp = false;
+                if (tournament.attendees.includes(userProfile.nickname)) {
+                    signedUp = true;
+                }
+            div.card.tourney-card
+              img.card-img-top(src=tournament.image_url, alt="")
+              div.card-body
+                h5.card-title #{tournament.name}
+                p.card-text 
+                  i Game: 
+                  | #{tournament.game}
+                p.card-text 
+                  i Date: 
+                  | #{tourneyDateFormatted}
+                p.card-text 
+                  i Time: 
+                  | #{tourneyTime}
+                p.card-text 
+                  i Attendees: 
+                  | #{numOfAttendees}
+                p.card-text 
+                  i Location: 
+                  | #{tournament.location}
+                p.card-text
+                  i Organizer: 
+                  | #{tournament.owner}
+                if signedUp
+                    button.btn.btn-danger(type="button" onclick="window.location.href='/api/cancel/" +  tournament._id + "'") Unenroll from Tournament
+                    p
+                        i You are already signed up for this tournament.
+                else
+                    button.btn.btn-primary(type="button" onclick="window.location.href='/api/signup/" +  tournament._id + "'") Enroll for Tournament

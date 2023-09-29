@@ -226,6 +226,39 @@ app.post("/api/addTourney", secured, async (req, res, next) => {
   res.redirect("/user");
 });
 
+app.get("/api/signup/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let tournament = await getTournamentById(id);
+  let attendees = tournament.attendees;
+  attendees.push(userProfile.nickname);
+  let database = client.db(dbName);
+  let collection = database.collection(tournamentCollection);
+  const query = { _id: new mongodb.ObjectId(id)};
+  const update = { $set: { attendees: attendees } };
+  const options = { upsert: true };
+  const result = await collection.updateOne(query, update, options);
+  res.redirect("/tournament/" + id);
+});
+
+app.get("/api/cancel/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let tournament = await getTournamentById(id);
+  let attendees = tournament.attendees;
+  let index = attendees.indexOf(userProfile.nickname);
+  if (index > -1) {
+    attendees.splice(index, 1);
+  }
+  let database = client.db(dbName);
+  let collection = database.collection(tournamentCollection);
+  const query = { _id: new mongodb.ObjectId(id)};
+  const update = { $set: { attendees: attendees } };
+  const options = { upsert: true };
+  const result = await collection.updateOne(query, update, options);
+  res.redirect("/tournament/" + id);
+});
+
 //404 page handler
 app.get("*", (req, res) => {
   res.render("404", {
