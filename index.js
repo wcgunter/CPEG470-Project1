@@ -189,8 +189,7 @@ app.get("/tournament/:id", secured, async (req, res, next) => {
   let tournament = await getTournamentById(id);
   if (tournament == null) {
     res.render("404", {
-      title: "404",
-      userProfile: userProfile
+      title: "404"
     });
   } else if (tournament.owner == userProfile.nickname) {
     res.render("tournament_admin", {
@@ -225,6 +224,13 @@ app.post("/api/addTourney", secured, async (req, res, next) => {
   dbData["data"] = "";
   let result = await createNewTournament(dbData);
   res.redirect("/user");
+});
+
+//404 page handler
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404"
+  });
 });
 
 /**
