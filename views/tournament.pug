@@ -24,6 +24,10 @@ block layout-content
                 if (tournament.attendees.includes(userProfile.nickname)) {
                     signedUp = true;
                 }
+            div.back-button
+              button.btn.btn-outline-primary.btn-sm(type="button", onclick="window.location.href='/user'")
+                i.bi.bi-arrow-left.icon-btn-logout
+                | Back to Tournaments
             div.card.tourney-card
               img.card-img-top(src=tournament.image_url, alt="")
               div.card-body
