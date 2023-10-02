@@ -13,8 +13,8 @@ block layout-content
           | Logout
   div.container-fluid
     div.row
-      div.col.tourneylist-main
-        div.tourneylist-main-flex
+      div.col.tourneylist-main.limit-width
+        div.tourneylist-main-flex.limit-width
             - 
               var tourneyDate = new Date(tournament.date)
               var tourneyDateFormatted = tourneyDate.toDateString();
@@ -52,3 +52,13 @@ block layout-content
                         i You are already signed up for this tournament.
                 else
                     button.btn.btn-primary(type="button" onclick="window.location.href='/api/signup/" +  tournament._id + "'") Enroll for Tournament
+      div.col.bracket-viewer
+        div.container-fluid(id="bracket-container")
+          script.
+            $(document).ready(function() {
+              let tournament = !{JSON.stringify(tournament.data)};
+              console.log(tournament);
+              $("#bracket-container").bracket({
+                init: tournament
+            })
+            });

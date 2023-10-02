@@ -97,3 +97,12 @@ input:invalid {
 input:invalid:required {
     border-color: red !important;
 }
+
+.limit-width {
+    max-width: 20rem !important;
+}
+
+#bracket-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
