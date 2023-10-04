@@ -52,8 +52,10 @@ block layout-content
                   | #{tournament.owner}
                 if signedUp
                     button.btn.btn-danger(type="button" onclick="window.location.href='/api/cancel/" +  tournament._id + "'") Unenroll from Tournament
+                    p 
+                      i The tournament owner will be notified of your enrollment. Bracket will update when they acknowledge your enrollment.
                     p
-                        i You are already signed up for this tournament.
+                      i You are already signed up for this tournament.
                 else
                     button.btn.btn-primary(type="button" onclick="window.location.href='/api/signup/" +  tournament._id + "'") Enroll for Tournament
       div.col.bracket-viewer
