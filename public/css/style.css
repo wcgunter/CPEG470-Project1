@@ -42,6 +42,10 @@
     width: 18rem;
 }
 
+.tourney-card2 {
+    width: 25rem;
+}
+
 .tourneylist-main-flex {
     margin-top: 15px;
     display: flex;
@@ -101,9 +105,17 @@ input:invalid:required {
 .limit-width {
     max-width: 20rem !important;
 }
+.limit-width2 {
+    max-width: 30rem !important;
+}
 
 #bracket-container {
     margin-top: 60px;
     margin-bottom: 15px;
     overflow: scroll;
+}
+
+.participant-list-select {
+    display: flex;
+    flex-direction: column;
 }

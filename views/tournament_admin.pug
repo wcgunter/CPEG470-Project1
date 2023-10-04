@@ -1,0 +1,73 @@
+extends layout
+
+block layout-content
+  nav.navbar.sticky-top.bg-body-tertiary 
+    div.container-fluid
+      a.navbar-brand(href="/")
+        img(src="/images/trophy.png", alt="Trophy", height="30px", width="30px")
+        span.navbar-brand-text.title-fix Tourney Tracker
+      div.navbar-nav.navbar-flex-fix
+        a.nav-link.disabled Welcome, #{userProfile.name.givenName}!
+        button.btn.btn-outline-secondary(type="button", onclick="window.location.href='/logout'")
+          i.bi.bi-door-closed.icon-btn-logout
+          | Logout
+  div.container-fluid
+    div.row
+      div.col.tourneylist-main.limit-width2
+        div.tourneylist-main-flex.limit-width2
+            - 
+              var tourneyDate = new Date(tournament.date)
+              var tourneyDateFormatted = tourneyDate.toDateString();
+              var tourneyTime = tourneyDate.toLocaleTimeString();
+              var numOfAttendees = tournament.attendees.length;
+              var signedUp = false;
+                if (tournament.attendees.includes(userProfile.nickname)) {
+                    signedUp = true;
+                }
+            div.back-button
+              button.btn.btn-outline-primary.btn-sm(type="button", onclick="window.location.href='/user'")
+                i.bi.bi-arrow-left.icon-btn-logout
+                | Back to Tournaments
+            div.card.tourney-card2
+              div.card-body
+                h5.card-title Edit Tournament
+                form(id="addTourneyForm", method="POST", action="/api/editTourney/" + tournament._id, autocomplete="off")
+                    div.input-group.mb-3
+                        span.input-group-text Tournament Name
+                        input#tourneyName.form-control(type="text", placeholder="Enter tournament name", name="tourneyName", value=tournament.name required)
+                    div.input-group.mb-3
+                        span.input-group-text Game
+                        input#tourneyGame.form-control(type="text", placeholder="Enter tournament game", name="tourneyGame", value=tournament.game required)
+                    div.input-group.mb-3
+                        span.input-group-text Location
+                        input#tourneyLocation.form-control(type="text", placeholder="Enter tournament location", name="tourneyLocation" value=tournament.location required)
+                    div.input-group.mb-3
+                        span.input-group-text Date
+                        input#tourneyDate.form-control(type="datetime-local", placeholder="Enter tournament date", name="tourneyDate" value=tournament.date required)
+                    div.mb-3
+                        div.input-group
+                            span.input-group-text Image URL
+                            input#tourneyImage.form-control(type="text", placeholder="Enter tournament image URL", name="tourneyImage" value=tournament.image_url required)
+                        div.form-text 
+                            | We recommend Imgur to host your image for free.
+                    div.mb-3
+                        div.input-group
+                            span.participants-text Participants
+                                div.participant-list-select
+                                    each attendee in tournament.attendees
+                                        div
+                                            input.icon-btn-logout(type="checkbox", id=attendee, name=attendee, value=attendee, checked)
+                                            label(for=attendee) #{attendee}
+                    div.mb-2
+                        div.input-group
+                            input.btn.btn-primary(type="submit", value="Update")
+      div.col.bracket-viewer
+        div.container-fluid(id="bracket-container")
+          script.
+            $(document).ready(function() {
+              let tournament = !{JSON.stringify(tournament.data)};
+              console.log(tournament);
+              $("#bracket-container").bracket({
+                init: tournament
+            })
+            });

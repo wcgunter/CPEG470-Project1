@@ -230,6 +230,30 @@ app.post("/api/addTourney", secured, async (req, res, next) => {
   res.redirect("/user");
 });
 
+app.post("/api/editTourney/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let submittedData = req.body;
+  let tournament = await getTournamentById(id);
+  let updatedParticipants = [];
+  //the list of participants are stored as key value pairs (after tournamentImage, it is stored like "bob": "bob")
+  //we need to get the keys and store them in an array
+  for (let key in submittedData) {
+    if (key != "tourneyName" && key != "tourneyDate" && key != "tourneyGame" && key != "tourneyLocation" && key != "tourneyImage") {
+      updatedParticipants.push(key);
+    }
+  }
+  if (tournament.owner == userProfile.nickname) {
+    let database = client.db(dbName);
+    let collection = database.collection(tournamentCollection);
+    const query = { _id: new mongodb.ObjectId(id)};
+    const update = { $set: { name: submittedData["tourneyName"], date: submittedData["tourneyDate"], game: submittedData["tourneyGame"], location: submittedData["tourneyLocation"], image_url: submittedData["tourneyImage"], attendees: updatedParticipants } };
+    const options = { upsert: true };
+    const result = await collection.updateOne(query, update, options);
+  }
+  res.redirect("/tournament/" + id);
+});
+
 app.get("/api/signup/:id", secured, async (req, res, next) => {
   const { _raw, _json, ...userProfile } = req.user;
   let id = req.params.id;
