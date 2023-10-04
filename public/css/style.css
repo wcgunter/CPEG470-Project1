@@ -106,7 +106,7 @@ input:invalid:required {
     max-width: 20rem !important;
 }
 .limit-width2 {
-    max-width: 30rem !important;
+    max-width: 23rem !important;
 }
 
 #bracket-container {
@@ -118,4 +118,23 @@ input:invalid:required {
 .participant-list-select {
     display: flex;
     flex-direction: column;
+}
+
+.scroll-update-tournament {
+    overflow-y: scroll;
+    height: calc(100vh - 58.28px - 15px - 15px - 50px);
+}
+
+.bracket-admin-editor {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.bracket-viewer {
+    padding-left: 0px !important;
 }

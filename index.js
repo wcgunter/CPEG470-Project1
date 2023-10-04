@@ -287,6 +287,30 @@ app.get("/api/cancel/:id", secured, async (req, res, next) => {
   res.redirect("/tournament/" + id);
 });
 
+app.post("/api/saveBracket/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let submittedData = req.body;
+  let tournament = await getTournamentById(id);
+  if (tournament.owner == userProfile.nickname) {
+    let database = client.db(dbName);
+    let collection = database.collection(tournamentCollection);
+    const query = { _id: new mongodb.ObjectId(id)};
+    const update = { $set: { data: submittedData } };
+    const options = { upsert: true };
+    const result = await collection.updateOne(query, update, options);
+  }
+  res.sendStatus(200);
+});
+
+app.get("/api/getAttendees/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let tournament = await getTournamentById(id);
+  let attendees = tournament.attendees;
+  res.json(attendees);
+});
+
 //404 page handler
 app.get("*", (req, res) => {
   res.render("404", {

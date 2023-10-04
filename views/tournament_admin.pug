@@ -29,7 +29,7 @@ block layout-content
                 i.bi.bi-arrow-left.icon-btn-logout
                 | Back to Tournaments
             div.card.tourney-card2
-              div.card-body
+              div.card-body.scroll-update-tournament
                 h5.card-title Edit Tournament
                 form(id="addTourneyForm", method="POST", action="/api/editTourney/" + tournament._id, autocomplete="off")
                     div.input-group.mb-3
@@ -62,12 +62,44 @@ block layout-content
                         div.input-group
                             input.btn.btn-primary(type="submit", value="Update")
       div.col.bracket-viewer
+        div.bracket-admin-editor
+            button.btn.btn-success(type="button", onclick="saveBracket()") Save Bracket
         div.container-fluid(id="bracket-container")
           script.
             $(document).ready(function() {
               let tournament = !{JSON.stringify(tournament.data)};
               console.log(tournament);
               $("#bracket-container").bracket({
-                init: tournament
+                init: tournament,
+                save: saveFn,
             })
             });
+            function saveBracket() {
+                let tournament = !{JSON.stringify(tournament)};
+                let bracketData = $("#bracket-container").bracket('data');
+                $.ajax({
+                    type: "POST",
+                    url: "/api/saveBracket/" + tournament._id,
+                    data: JSON.stringify(bracketData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        alert("Bracket saved!");
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            }
+            function saveFn(data, userData) {
+                var json = JSON.stringify(data)
+                let tournament = !{JSON.stringify(tournament)};
+                $.ajax({
+                    type: "POST",
+                    url: "/api/saveBracket/" + tournament._id,
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                });
+            }
