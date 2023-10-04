@@ -106,8 +106,9 @@ async function getAllTournaments() {
     let database = client.db(dbName);
     let collection = database.collection(tournamentCollection);
 
-    const resultsCursor = await collection.find();
-    //order results so newest is first
+    //query for all tournaments with status "active"
+    const query = { status: "active" };
+    const resultsCursor = await collection.find(query);
     resultsCursor.sort({ _id: -1 });
     const resultsArray = await resultsCursor.toArray();
     console.log(resultsArray[0]);
@@ -220,6 +221,7 @@ app.post("/api/addTourney", secured, async (req, res, next) => {
   dbData["game"] = submittedData["tourneyGame"];
   dbData["location"] = submittedData["tourneyLocation"];
   dbData["image_url"] = submittedData["tourneyImage"];
+  dbData["status"] = "active";
   dbData["attendees"] = [];
   //example data object
   let exampleData = {};
@@ -301,6 +303,18 @@ app.post("/api/saveBracket/:id", secured, async (req, res, next) => {
     const result = await collection.updateOne(query, update, options);
   }
   res.sendStatus(200);
+});
+
+app.get("/api/deleteTourney/:id", secured, async (req, res, next) => {
+  const { _raw, _json, ...userProfile } = req.user;
+  let id = req.params.id;
+  let database = client.db(dbName);
+  let collection = database.collection(tournamentCollection);
+  const query = { _id: new mongodb.ObjectId(id)};
+  const update = { $set: { status: "deleted" } };
+  const options = { upsert: true };
+  const result = await collection.updateOne(query, update, options);
+  res.redirect("/user");
 });
 
 app.get("/api/getAttendees/:id", secured, async (req, res, next) => {
